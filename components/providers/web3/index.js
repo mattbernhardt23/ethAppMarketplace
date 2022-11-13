@@ -1,5 +1,6 @@
 const { useContext, createContext, useEffect, useState, useMemo } = require("react");
-import {setupHooks} from "@components/providers/hooks/setupHooks"
+import { setupHooks } from "@components/providers/hooks/setupHooks"
+import { loadContract } from "@utils/loadContract";
 import detectEthereumProvider from '@metamask/detect-provider'
 import Web3 from "web3";
  
@@ -22,10 +23,11 @@ export default function Web3Provider({children}) {
             const provider = await detectEthereumProvider()
             if(provider) {
                 const web3 = new Web3(provider)
+                const contract = await loadContract("CourseMarketplace", web3)
                 setWeb3Api({
                     provider,
                     web3,
-                    contract: null,
+                    contract,
                     isLoading: false,
                     hooks: setupHooks(web3, provider)
                 })

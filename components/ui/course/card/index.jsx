@@ -10,6 +10,7 @@ export default function Card({course,disabled, Footer}) {
           <Image
             className="object-cover responsive"
             src={course.coverImage}
+            priority
             width="200"
             height="230"
             alt={course.title}

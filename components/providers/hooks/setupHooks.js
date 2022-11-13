@@ -1,13 +1,15 @@
 import { useAccount } from "./useAccount"
 import { useNetwork } from "./useNetwork"
 import { useEthPrice } from "./useEthPrice"
+import { useOwnedCourses } from "./useOwnedCourses"
 
  
-export const setupHooks = web3 => {
+export const setupHooks = (...deps) => {
 
     return {
-        useAccount: useAccount(web3),
-        useNetwork: useNetwork(web3),
-        useEthPrice: useEthPrice()
+        useAccount: useAccount(...deps),
+        useNetwork: useNetwork(...deps),
+        useEthPrice: useEthPrice(...deps),
+        useOwnedCourses: useOwnedCourses(...deps)
     }
 }

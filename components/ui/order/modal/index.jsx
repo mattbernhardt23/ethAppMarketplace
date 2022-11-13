@@ -30,7 +30,7 @@ const createFormState = ({price, email, confirmationEmail }) => {
   return {isDisabled: false, message: ""}
 }
 
-export default function OrderModal({course, onClose}) {
+export default function OrderModal({course, onClose, onSumbit}) {
   // Opens and closes the modal
   const [isOpen, setIsOpen] = useState(false)
   // Gives our component state to keep track of order details.
@@ -179,7 +179,7 @@ export default function OrderModal({course, onClose}) {
           <Button
             disabled={formstate.isDisabled}
             onClick={() => {
-              alert(JSON.stringify(order))
+              onSumbit(order, course)
             }}
           >
             Submit

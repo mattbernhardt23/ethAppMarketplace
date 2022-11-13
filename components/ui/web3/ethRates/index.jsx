@@ -20,7 +20,6 @@ export default function EthRates() {
             <Loader size="md"/> :
             <>
               <Image
-                layout="fixed"
                 height="35"
                 width="35"
                 src="/ethIcon.png"
@@ -43,7 +42,6 @@ export default function EthRates() {
                   {perItem}
                 </span>
                 <Image
-                  layout="fixed"
                   height="35"
                   width="35"
                   src="/ethIcon.png"
