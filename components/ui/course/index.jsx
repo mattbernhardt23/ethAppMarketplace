@@ -1,5 +1,5 @@
 
-
+export { default as ManagedCourseCard } from "./card/Managed"
 export { default as OwnedCourseCard } from "./card/OwnedCourseCard"
 export { default as CourseList } from "./list"
 export { default as CourseHero } from "./hero"

@@ -21,6 +21,8 @@ contract CourseMarketPlace {
         // Each of these are slots in storage. All are 32 bits, except address is 20, and State is 1, so they will share a slot.
     }
 
+    bool public isStopped = false;
+
     //Mappings are hash tables that store data as key-value pairs.
     // Below is a mapping of a course-hash to an individual course
     mapping(bytes32 => Course) private ownedCourses;
@@ -42,8 +44,17 @@ contract CourseMarketPlace {
     /// Course already been purchased
     error CourseHasOwner();
 
-    ///ONly owner has access to this function
+    ///Only owner has access to this function
     error OnlyOwner();
+
+    /// Course Has Not Been Created
+    error CourseIsNotCreated();
+
+    /// Course Has Invalid State
+    error InvalidState();
+
+    /// Repurchase Denied, Sender is Not Course Owner
+    error SenderIsNotCourseOwner();
 
     modifier onlyOwner() {
         if (msg.sender != getContractOwner()) {
@@ -52,9 +63,51 @@ contract CourseMarketPlace {
         _;
     }
 
+    modifier onlyWhenNotStopped() {
+        require(!isStopped);
+        _;
+    }
+
+    modifier onlyWhenStopped() {
+        require(isStopped);
+        _;
+    }
+
     // This file follows the style guide for how to place your functions within a contract.
     // This function allows us to store courses that users have purchased.
-    function purchaseCourse(bytes16 courseId, bytes32 proof) external payable {
+
+    function stopContract() external onlyOwner {
+        isStopped = true;
+    }
+
+    function resumeContract() external onlyOwner {
+        isStopped = false;
+    }
+
+    // Allows Our Contract to Receive Ether
+    receive() external payable {}
+
+    function withdraw(uint256 amount) external onlyOwner {
+        (bool success, ) = owner.call{value: amount}("");
+        require(success, "Transfer failed.");
+    }
+
+    // Has the same functionality of the new requirements of a Sendall function to replace teh Self-Destruct function
+    function emergencyWithdraw() external onlyWhenStopped onlyOwner {
+        (bool success, ) = owner.call{value: address(this).balance}("");
+        require(success, "Transfer failed.");
+    }
+
+    function transferFunds(address payable _recipient, uint256 _amount) public {
+        require(_recipient != address(0), "Invalid recipient address");
+        _recipient.transfer(_amount);
+    }
+
+    function purchaseCourse(bytes16 courseId, bytes32 proof)
+        external
+        payable
+        onlyWhenNotStopped
+    {
         // Create the course hash
         bytes32 courseHash = keccak256(abi.encodePacked(courseId, msg.sender));
         // Checks to see if the user has already purchsed the course
@@ -73,6 +126,70 @@ contract CourseMarketPlace {
             owner: msg.sender,
             state: State.Purchased
         });
+    }
+
+    function repurchaseCourse(bytes32 courseHash)
+        external
+        payable
+        onlyWhenNotStopped
+    {
+        if (!isCourseCreated(courseHash)) {
+            revert CourseIsNotCreated();
+        }
+
+        if (!courseIsOwned(courseHash)) {
+            revert SenderIsNotCourseOwner();
+        }
+
+        Course storage course = ownedCourses[courseHash];
+
+        if (course.state != State.Deactivated) {
+            revert InvalidState();
+        }
+
+        course.state = State.Purchased;
+        course.price = msg.value;
+    }
+
+    // We are looking for a coure hash being sent from teh contract owner. If that is false, the first error will trigger. Then, we will access this course in the storage because we are retrieving information we plan to alter. This will update on the blockchain.
+    function activateCourse(bytes32 courseHash)
+        external
+        onlyOwner
+        onlyWhenNotStopped
+    {
+        if (!isCourseCreated(courseHash)) {
+            revert CourseIsNotCreated();
+        }
+
+        Course storage course = ownedCourses[courseHash];
+
+        if (course.state != State.Purchased) {
+            revert InvalidState();
+        }
+
+        course.state = State.Activated;
+    }
+
+    function deactivateCourse(bytes32 courseHash)
+        external
+        onlyOwner
+        onlyWhenNotStopped
+    {
+        if (!isCourseCreated(courseHash)) {
+            revert CourseIsNotCreated();
+        }
+
+        Course storage course = ownedCourses[courseHash];
+
+        if (course.state != State.Purchased) {
+            revert InvalidState();
+        }
+
+        (bool success, ) = course.owner.call{value: course.price}("");
+        require(success, "Transfer Failed!");
+
+        course.state = State.Deactivated;
+        course.price = 0;
     }
 
     function transferOwnership(address newOwner) external onlyOwner {
@@ -106,6 +223,12 @@ contract CourseMarketPlace {
 
     function setContractOwner(address newOwner) private {
         owner = payable(newOwner);
+    }
+
+    function isCourseCreated(bytes32 courseHash) private view returns (bool) {
+        return
+            ownedCourses[courseHash].owner !=
+            0x0000000000000000000000000000000000000000;
     }
 
     // Helper function for our purchaseCourse function that will stop that function if the course has already been purchased.

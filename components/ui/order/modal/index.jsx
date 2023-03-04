@@ -1,4 +1,5 @@
-import { useEthPrice } from "@components/web3/hooks/useEthPrice";
+import { useEthPrice, COURSE_PRICE } from "@components/providers/web3/hooks/useEthPrice"
+// import { useEthPrice } from "@components/hooks/web3" 
 import { Modal, Button } from "@components/ui/common";
 import { useState, useEffect } from 'react'
 
@@ -19,24 +20,24 @@ const _createFormState = (
   ) => ({isDisabled, message})
 
 // Creates a function with a variety of scenarios in which we would need to relay necessary information about the state of the form and prohibt submition if necessary.  
-const createFormState = ({price, email, confirmationEmail }) => {
+const createFormState = ({price, email, confirmationEmail, isNewPurchase }) => {
   if (!price || Number(price) <= 0) {
     return _createFormState(true, "Price is Invalid")
+
+  if (isNewPurchase) {
   } else if (confirmationEmail.length === 0 || email.length === 0) {
     return _createFormState(true)
   } else if (email !== confirmationEmail) {
     return _createFormState(true, "Please Make Sure Confirmation Email and Email are the Same.")
   }
-  return {isDisabled: false, message: ""}
+}
+  return _createFormState()
 }
 
-export default function OrderModal({course, onClose, onSumbit}) {
-  // Opens and closes the modal
+export default function OrderModal({course, onClose, onSumbit, isNewPurchase}) {
   const [isOpen, setIsOpen] = useState(false)
-  // Gives our component state to keep track of order details.
   const [order, setOrder] = useState(defaultOrder)
-  // Gets the current eth price
-  const { perItem } = useEthPrice()
+  const { eth, perItem } = useEthPrice()
 
   const {price, email, confirmationEmail, enablePrice, termsOfService} = order
 
@@ -50,14 +51,14 @@ export default function OrderModal({course, onClose, onSumbit}) {
       })
     }
   }, [course])
-
+  
   // Closes the modal. OnClose function resets course to null.
   const closeModal = () => {
     setIsOpen(false)
     setOrder(defaultOrder)
     onClose()
   }
-
+  
   const formstate = createFormState(order)
   
   return (
@@ -180,13 +181,18 @@ export default function OrderModal({course, onClose, onSumbit}) {
             disabled={formstate.isDisabled}
             onClick={() => {
               onSumbit(order, course)
+              setOrder({defaultOrder})
+              closeModal()
             }}
           >
             Submit
           </Button>
           <Button
             variant="red"
-            onClick={closeModal}  
+            onClick={() => {
+              setOrder({defaultOrder})
+              closeModal()
+            }}  
           >
             Cancel
           </Button>
@@ -195,3 +201,4 @@ export default function OrderModal({course, onClose, onSumbit}) {
     </Modal>
   )
 }
+ 

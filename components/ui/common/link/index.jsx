@@ -10,7 +10,7 @@ export default function ActiveLink({children, activeLinkClass,...props}) {
     className = `${className} ${activeLinkClass ? activeLinkClass : "text-indigo-600"}`
 }
   return (
-    <Link {...props}>
+    <Link {...props} legacyBehavior>
       {
         React.cloneElement(
             children, 

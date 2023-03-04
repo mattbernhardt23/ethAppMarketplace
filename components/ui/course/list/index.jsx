@@ -11,3 +11,4 @@ export default function List({courses, children}) {
       </section>
     )
   }
+   

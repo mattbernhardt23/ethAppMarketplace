@@ -10,7 +10,7 @@ const fetcher = async (url) => {
     return json.market_data.current_price.usd
 }
 
-export const useEthPrice = () => () => {
+export const useEthPrice = () => {
     const {data, ...rest} = useSWR(
         URL,
         fetcher,  
@@ -19,10 +19,6 @@ export const useEthPrice = () => () => {
 
     const perItem = (data && (COURSE_PRICE / Number(data)).toFixed(8))
 
-    return {
-        eth: data ?? "Call failed",
-        perItem: perItem,
-        other: {...rest}
-    }
+    return { eth: data, perItem}
 } 
     
