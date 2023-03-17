@@ -46,7 +46,7 @@ export default function Web3Provider({ children }) {
         const contract = await loadContract("CourseMarketplace", web3);
         setListeners(provider);
         setWeb3Api(
-          createWeb3State({
+          CreateWeb3State({
             provider,
             web3,
             contract,
