@@ -13,7 +13,7 @@ const NETWORKS = {
 
 const targetNetwork = NETWORKS[process.env.NEXT_PUBLIC_TARGET_CHAIN_ID];
 
-export const useNetwork = (web3) => () => {
+export const handler = (web3) => () => {
   const { data, mutate, ...rest } = useSWR(
     () => (web3 ? "web3/network" : null),
     async () => {

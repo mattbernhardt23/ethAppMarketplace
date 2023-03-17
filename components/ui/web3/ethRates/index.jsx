@@ -2,8 +2,8 @@ import Image from "next/image";
 import {
   useEthPrice,
   COURSE_PRICE,
-} from "@components/providers/web3/hooks/useEthPrice";
-// import { useEthPrice } from "@components/hooks/web3"
+} from "@components/hooks/useEthPrice";
+
 import { Loader } from "@components/ui/common";
 
 export default function EthRates() {

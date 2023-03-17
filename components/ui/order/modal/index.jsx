@@ -1,4 +1,4 @@
-import { useEthPrice, COURSE_PRICE } from "@components/providers/web3/hooks/useEthPrice"
+import { useEthPrice, COURSE_PRICE } from "@components/hooks/useEthPrice"
 // import { useEthPrice } from "@components/hooks/web3" 
 import { Modal, Button } from "@components/ui/common";
 import { useState, useEffect } from 'react'

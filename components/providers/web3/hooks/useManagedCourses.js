@@ -1,26 +1,34 @@
 import useSWR from "swr";
-import { normalizeOwnedCourse } from "@utils/normalize"
+import { normalizeOwnedCourse } from "@utils/normalize";
 
-export const useManagedCourses = (web3, contract) => (account) => {
-    const swrRes = useSWR(() => 
-    (web3 && contract && account) ? `web3/managedCourses/${account}`: null,
+export const handler = (web3, contract) => (account) => {
+  const swrRes = useSWR(
+    () =>
+      web3 && contract && account ? `web3/managedCourses/${account}` : null,
     async () => {
-        const courses =[]
+      const courses = [];
 
-        const courseCount = await contract.methods.getCourseCount().call()
+      const courseCount = await contract.methods.getCourseCount().call();
 
-        for(let i = Number(courseCount) - 1; i >= 0; i--) {
-            const courseHash = await contract.methods.getCourseHashAtIndex(i).call()
-            const course = await contract.methods.getCourseByHash(courseHash).call()
+      for (let i = Number(courseCount) - 1; i >= 0; i--) {
+        const courseHash = await contract.methods
+          .getCourseHashAtIndex(i)
+          .call();
+        const course = await contract.methods
+          .getCourseByHash(courseHash)
+          .call();
 
-            if (course) {
-                const normalized = normalizeOwnedCourse(web3)({ hash: courseHash }, course)
-                courses.push(normalized)
-              }
+        if (course) {
+          const normalized = normalizeOwnedCourse(web3)(
+            { hash: courseHash },
+            course
+          );
+          courses.push(normalized);
         }
-        return courses
+      }
+      return courses;
     }
-    )
+  );
 
-    return swrRes
-}
+  return swrRes;
+};

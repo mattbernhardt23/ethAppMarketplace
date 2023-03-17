@@ -42,16 +42,16 @@ export default function LearnMore({courses}) {
             <h2 className="text-cyan-900 text-2xl font-bold my-4">
               Why Blockchain?
             </h2>
-            {content.whyBlockchain.map((item) => (
-              <p className="text-cyan-600 text-lg font-semibold my-4">
+            {content.whyBlockchain.map((item, index) => (
+              <p className="text-cyan-600 text-lg font-semibold my-4" key={index}>
                 {item}
               </p>
             ))}
           </div>
           <div>
-            <h2 className="text-cyan-900 text-2xl font-bold my-4">What's a Wallet?</h2>
-          {content.connectingWallet.map((item) => (
-              <p className="text-cyan-600 text-lg font-semibold my-4">
+            <h2 className="text-cyan-900 text-2xl font-bold my-4">What&apos;s a Wallet?</h2>
+          {content.connectingWallet.map((item, index) => (
+              <p className="text-cyan-600 text-lg font-semibold my-4" key={index}>
                 {item}
               </p>
             ))}
@@ -60,8 +60,8 @@ export default function LearnMore({courses}) {
             <h2 className="text-cyan-900 text-2xl font-bold my-4">
               How Can I Get Some Eth?
             </h2>
-          {content.getEther.map((item) => (
-              <p className="text-cyan-600 text-lg font-semibold my-4">
+          {content.getEther.map((item, index) => (
+              <p className="text-cyan-600 text-lg font-semibold my-4" key={index}>
                 {item}
               </p>
             ))}

@@ -13,7 +13,7 @@ function FAQ() {
             Learn How to Connect and Access Content
           </h2>
           <p className="whitespace-normal border-r-full  text-md sm:text-lg md:text-xl pb-4 md:pb-0 text-cyan-800 py-2 md:py-6">
-          Working Title harnesses the power of blockchain technology. The blockchain offers many benefits, such as decentralized data storage, transparency, and security. Our platform utilizes these advantages to provide a seamless experience for our users. However, we understand that not everyone is familiar with blockchain technology, which is why we are here to help. If connecting to a blockchain wallet is new to you, don't worry. Follow the link below and we'll  guide you through the process and teach you how it all works. 
+          The Power Within harnesses the power of blockchain technology. The blockchain offers many benefits, such as decentralized data storage, transparency, and security. Our platform utilizes these advantages to provide a seamless experience for our users. However, we understand that not everyone is familiar with blockchain technology, which is why we are here to help. If connecting to a blockchain wallet is new to you, don&apos;t worry. Follow the link below and we&apos;ll  guide you through the process and teach you how it all works. 
           </p>
           <Link href={`/learn-more`} legacyBehavior>
             <a className="mx-auto  pt-2 md:pt-4">

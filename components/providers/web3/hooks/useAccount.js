@@ -7,7 +7,7 @@ const adminAddresses = {
   "0x23e901d1733896b47d22a33a84108b2c6a24789c82e9db693a014ecd2b03a1b7": true,
 };
 
-export const useAccount = (web3, provider) => () => {
+export const handler = (web3, provider) => () => {
   const { data, mutate, ...rest } = useSWR(
     () => (web3 ? "web3/accounts" : null),
     async () => {

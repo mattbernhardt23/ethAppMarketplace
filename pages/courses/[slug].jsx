@@ -1,4 +1,4 @@
-import { Message, Button } from '@components/ui/common'
+import { Button } from '@components/ui/common'
 import { CourseHero, Curriculum, Keypoints } from '@components/ui/course'
 import { getAllCourses } from "@content/courses/fetcher"
 import { useOwnedCourse, useWalletInfo } from "@components/hooks/web3"
