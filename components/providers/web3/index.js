@@ -39,10 +39,10 @@ export default function Web3Provider({ children }) {
   useEffect(() => {
     const loadProvider = async () => {
       const provider = await detectEthereumProvider();
-      console.log(provider);
+      console.log("provider", provider);
       if (provider) {
         const web3 = new Web3(provider);
-        console.log(web3);
+        console.log("web3", web3);
         const contract = await loadContract("CourseMarketplace", web3);
         setListeners(provider);
         setWeb3Api(
