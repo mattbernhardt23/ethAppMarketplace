@@ -5,7 +5,6 @@ pragma solidity >=0.4.22 <0.9.0;
 contract CourseMarketPlace {
     // Enums are user-defined data types that restrict the variable to have only one of the predifined vales.
     enum State {
-        Purchased,
         Activated,
         Deactivated
     }
@@ -92,7 +91,7 @@ contract CourseMarketPlace {
         require(success, "Transfer failed.");
     }
 
-    // Has the same functionality of the new requirements of a Sendall function to replace teh Self-Destruct function
+    // Has the same functionality of the new requirements of a Sendall function to replace teh Self-Destruct
     function emergencyWithdraw() external onlyWhenStopped onlyOwner {
         (bool success, ) = owner.call{value: address(this).balance}("");
         require(success, "Transfer failed.");
@@ -124,7 +123,7 @@ contract CourseMarketPlace {
             price: msg.value,
             proof: proof,
             owner: msg.sender,
-            state: State.Purchased
+            state: State.Activated
         });
     }
 
@@ -147,27 +146,8 @@ contract CourseMarketPlace {
             revert InvalidState();
         }
 
-        course.state = State.Purchased;
-        course.price = msg.value;
-    }
-
-    // We are looking for a coure hash being sent from teh contract owner. If that is false, the first error will trigger. Then, we will access this course in the storage because we are retrieving information we plan to alter. This will update on the blockchain.
-    function activateCourse(bytes32 courseHash)
-        external
-        onlyOwner
-        onlyWhenNotStopped
-    {
-        if (!isCourseCreated(courseHash)) {
-            revert CourseIsNotCreated();
-        }
-
-        Course storage course = ownedCourses[courseHash];
-
-        if (course.state != State.Purchased) {
-            revert InvalidState();
-        }
-
         course.state = State.Activated;
+        course.price = msg.value;
     }
 
     function deactivateCourse(bytes32 courseHash)
@@ -181,7 +161,7 @@ contract CourseMarketPlace {
 
         Course storage course = ownedCourses[courseHash];
 
-        if (course.state != State.Purchased) {
+        if (course.state != State.Activated) {
             revert InvalidState();
         }
 

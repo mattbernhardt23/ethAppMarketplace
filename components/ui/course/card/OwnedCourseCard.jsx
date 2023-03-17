@@ -1,9 +1,9 @@
 import Image from "next/image"
 
 const STATE_COLORS = {
-  purchased: "indigo",
-  activated: "green",
-  deactivated: "red"
+  Purchased: "cyan",
+  Activated: "green",
+  Deactivated: "red"
 }
 
 export default function OwnedCourseCard({children, course}) {
@@ -11,7 +11,9 @@ export default function OwnedCourseCard({children, course}) {
   const stateColor = STATE_COLORS[course?.state]  
 
   return (
-    <div className="grid grid-cols-4 bg-white shadow overflow-hidden sm:rounded-lg mb-3">
+    
+    <div className="
+    grid grid-cols-3 md:grid-cols-4 bg-white shadow overflow-hidden sm:rounded-lg mb-3">
       <div className="w-full h-full relative">
             <Image
               className="object-cover"
@@ -26,7 +28,7 @@ export default function OwnedCourseCard({children, course}) {
               33vw"
             />
       </div>
-      <div className="col-span-3">  
+      <div className="col-span-2 md:col-span-3">  
         <div>
         <div 
            className="px-4 py-5 sm:px-6"
@@ -45,30 +47,26 @@ export default function OwnedCourseCard({children, course}) {
                 {course.state}
               </span>
             </h3>
-            <p 
-              className="mt-1 max-w-2xl text-sm text-gray-500"
-            >
-            {course.price} ETH
-            </p>
+
             </div>
 
             <div 
               className="border-t border-gray-200"
             >
-              <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-9 sm:gap-4 sm:px-6">
+              <div className="bg-white px-4 py-2 sm:grid sm:grid-cols-2 sm:gap-4 sm:px-6">
                 <div 
                   className="text-sm font-medium text-gray-500"
                 >
-                  Course ID
+                  Descrition
                 </div>
                 <div 
-                  className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"
+                  className="mt-1 text-xs md:text-sm text-gray-900 sm:mt-0 sm:col-span-2"
                 >
-                  {course.ownedCourseId}
+                  {course.description}
                 </div>
               </div>
               <div 
-                className="bg-white px-4 py-5 sm:grid sm:grid-cols-9 sm:gap-4 sm:px-6"
+                className="bg-white px-4 py-2 sm:grid sm:grid-cols-2 sm:gap-4 sm:px-6"
               >
                 <div 
                   className="text-sm font-medium text-gray-500"
@@ -76,20 +74,21 @@ export default function OwnedCourseCard({children, course}) {
                   Proof
                 </div>
                 <div 
-                  className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"
+                  className="mt-1 text-xs md:text-sm text-gray-900 sm:mt-0 sm:col-span-2"
                 >
                   {course.proof}
                 </div>
               </div>
               <div 
                 className="bg-white px-4 py-5 sm:px-6"
-              >
+              > 
                 {children}
               </div>
               </div>
         </div>
       </div>
-    </div>    
+    </div>  
+      
   )
 }
   

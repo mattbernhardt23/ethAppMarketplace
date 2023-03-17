@@ -8,13 +8,13 @@ import { BaseLayout } from '@components/ui/layout'
 function MyApp({ Component, pageProps }) {
   
   return(
-    <>
+    <div className=''>
       <Web3Provider>
         <BaseLayout>
           <Component {...pageProps} />
         </BaseLayout>
       </Web3Provider>
-    </>
+    </div>
   ) 
 }
 

@@ -2,6 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
+
+.clip-half-circle {
+  clip-path: circle(60% at 35% 50%);
+}
+
+.clip-elipse-top {
+  clip-path: ellipse(64% 52% at 50% 0%);
+}
+.clip-elipse-bottom {
+  clip-path: ellipse(64% 52% at 50% 100%);
+}
+
+.clip-footer {
+  clip-path: ellipse(64% 52% at 50% 80%);
+}
+
+.arrow-down {
+  clip-path: polygon(30% 65%, 25% 0, 75% 0, 65% 65%, 100% 65%, 50% 100%, 0 66%);
+}
+
+.card-clip {
+  clip-path: polygon(0 0, 100% 0, 100% 75%, 50% 100%, 0 75%);
+}
+
 .fit {
     min-height: calc(100vh - 88px);
   }

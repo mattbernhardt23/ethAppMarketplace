@@ -1,20 +1,31 @@
-
-
-
-
 export default function Hero() {
+  return (
+    <section className="h-[70vh] w-full px-4 my-8 mb-20 bg-white rounded-2xl">
+      <div className="relative rounded-2xl">
+        <video
+          className="absolute h-[71vh] min-w-full  object-cover rounded-2xl border-2-white overflow-hidden"
+          autoPlay
+          muted
+          loop
+        >
+          <source src="/assets/video.mp4" type="video/mp4" />
+        </video>
+      </div>
 
-    return (
-      <section className="lg:2/6 text-left my-28">
-        <div className="text-6xl font-semibold text-gray-900 leading-none">Grow your career as a developer</div>
-        <div className="mt-6 text-xl font-light text-true-gray-500 antialiased">Learn programming and web development the easy way! Get unlimited access to all of our courses.</div>
-        <div className="mt-5 sm:mt-8 flex lg:justify-start">
-          <div className="rounded-md shadow">
-            <a href="#" className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10">
-              Get started
-            </a>
-          </div>
+      <div className="
+        h-[72vh] w-[110vw] bg-white z-20 absolute -left-[40%] 
+        clip-half-circle flex items-center sm:justify-start font-rampart">
+        
+        <div className="z-30 absolute top-[50%] right-[50%] translate-x-[75%] -translate-y-[50%] w-1/2 text-start whitespace-normal   text-cyan-900">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold
+          ml-16 md:ml-0
+          ">The Power Within</h1>
+          <h2 className="py-8 text-2xl md:text-4xl text-cyan-500 font-bold
+          ml-16 md:ml-0 ">
+            Be Bold, Go Beyond
+          </h2>
         </div>
-      </section>
-    )
-  }
+      </div>
+    </section>
+  );
+}

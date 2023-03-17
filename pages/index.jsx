@@ -1,43 +1,33 @@
-import { Hero, Button } from "@components/ui/common"
-import { CourseList } from "@components/ui/course"
+import { Hero, Button, About, FAQ, ReviewSlideshow, TrendingSlideshow } from "@components/ui/common"
 import { getAllCourses } from "@content/courses/fetcher"
-import { useWeb3 } from "@components/providers/index"
-import { Card } from "@components/ui/course"
+import { getAllReviews } from "@content/courses/reviewFetcher"
 
-export default function Home({courses}) {
-  
-  
 
+export default function Home({courses, reviews}) {
+  
   return (  
-          <>
+          <div>
             <Hero />
-            <CourseList 
-              courses={courses} 
-            >
-              {course => 
-                <Card 
-                  key={course.id}
-                  course={course}
-                  Footer={() => 
-                    <div>
-                      <Button>
-                        Purchase
-                      </Button>
-                    </div>
-                  }
-                />
-              }
-            </CourseList>
-          </>
+            <About />
+            <TrendingSlideshow
+              items={courses} 
+            />
+            <FAQ />
+            <ReviewSlideshow
+              items={reviews} 
+            />
+          </div>
      )
 }
 
 export function getStaticProps() {
   const { data } = getAllCourses()
+  const {reviewData} = getAllReviews()
   
   return {
     props: {
-      courses: data
+      courses: data,
+      reviews: reviewData
     }
   }
 }

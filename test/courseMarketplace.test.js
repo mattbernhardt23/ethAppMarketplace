@@ -6,6 +6,7 @@ const CourseMarketplace = artifacts.require("CourseMarketplace");
 // Using the Mocha and Chai testing frameworks
 // Note: Becuase our tests are interacting with Truffle, we do not have to use the contract.methods syntax when calling functions from our contract that we do inside our application.
 
+// Run Command: truffle test
 const getBalance = async (address) => web3.eth.getBalance(address);
 const toBN = (value) => web3.utils.toBN(value);
 
@@ -83,24 +84,6 @@ contract("CourseMarketplace", (accounts) => {
     });
   });
 
-  describe("Activate the purchased course", () => {
-    it("should NOT be able to activate course by NOT contract owner", async () => {
-      await catchRevert(_contract.activateCourse(courseHash, { from: buyer }));
-    });
-
-    it("should have 'activated' state", async () => {
-      await _contract.activateCourse(courseHash, { from: contractOwner });
-      const course = await _contract.getCourseByHash(courseHash);
-      const exptectedState = 1;
-
-      assert.equal(
-        course.state,
-        exptectedState,
-        "Course should have 'activated' state"
-      );
-    });
-  });
-
   describe("Transfer ownership", () => {
     let currentOwner = null;
 
@@ -169,7 +152,7 @@ contract("CourseMarketplace", (accounts) => {
       const afterTxOwnerBalance = await getBalance(currentOwner);
 
       const course = await _contract.getCourseByHash(courseHash2);
-      const exptectedState = 2;
+      const exptectedState = 1;
       const exptectedPrice = 0;
       const gas = await getGas(result);
 
@@ -192,12 +175,6 @@ contract("CourseMarketplace", (accounts) => {
         toBN(beforeTxContractBalance).sub(toBN(value)).toString(),
         afterTxContractBalance,
         "Contract ballance is not correct"
-      );
-    });
-
-    it("should NOT be able activate deactivated course", async () => {
-      await catchRevert(
-        _contract.activateCourse(courseHash2, { from: contractOwner })
       );
     });
   });

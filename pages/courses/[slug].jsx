@@ -1,16 +1,47 @@
-import { Modal, Message } from '@components/ui/common'
+import { Message, Button } from '@components/ui/common'
 import { CourseHero, Curriculum, Keypoints } from '@components/ui/course'
 import { getAllCourses } from "@content/courses/fetcher"
-import { useOwnedCourse, useAccount } from "@components/hooks/web3"
+import { useOwnedCourse, useWalletInfo } from "@components/hooks/web3"
 import { useWeb3 } from '@components/providers'
+import { OrderModal } from "@components/ui/order"
+import { useState } from 'react'
 
 
 export default function Course({course}) {
-    const { isLoading } = useWeb3()
-    const { account } = useAccount()
+    const { isLoading, web3, contract, requireInstall } = useWeb3()
+    const { hasConnectedWallet, account } = useWalletInfo()
     const { ownedCourse } = useOwnedCourse(course, account.data)
     const courseState = ownedCourse.data?.state
     
+
+    const [selectedCourse, setSelectedCourse] = useState(null)
+
+    const purchaseCourse = async (order) => {
+      
+      const hexCourseId = web3.utils.utf8ToHex(selectedCourse.id)
+  
+      const orderHash = web3.utils.soliditySha3(
+        {type: "bytes16", value: hexCourseId},
+        {type: "address", value: account.data},
+      )
+      const emailHash = web3.utils.sha3(order.email)
+      const proof = web3.utils.soliditySha3(
+        {type: "bytes32", value: emailHash},
+        {type: "bytes32", value: orderHash},
+      )
+  
+    
+      const value = web3.utils.toWei(order.price)
+  
+      try {
+        const contractCall = await contract.methods.purchaseCourse(
+          hexCourseId, proof
+        ).send({from: account.data, value })
+        return contractCall
+      } catch {
+        console.log("Purchase Course: Operation Has Failed")
+      }
+    }
 
     const isLocked = 
         !courseState ||
@@ -27,38 +58,29 @@ export default function Course({course}) {
                     image={course.coverImage}
                     hasOwner={!!ownedCourse.data}
                 />
+                {!ownedCourse.data &&
+                  <Button
+                    onClick={() => setSelectedCourse(course)}
+                    disabled={!hasConnectedWallet}
+                  >
+                    Purchase Course Now 
+                  </Button>
+                }
             </div>
             <Keypoints 
                 points = {course.wsl}
             />
-            { courseState &&
-        <div className="max-w-5xl mx-auto">
-          { courseState === "purchased" &&
-            <Message type="success">
-              Course is purchased and waiting for the activation. Process can take up to 24 hours.
-              <i className="block font-normal">In case of any questions, please contact info@eincode.com</i>
-            </Message>
-          }
-          { courseState === "activated" &&
-            <Message type="success">
-              Eincode wishes you happy watching of the course.
-            </Message>
-          }
-          { courseState === "deactivated" &&
-            <Message type="danger">
-              Course has been deactivated, due the incorrect purchase data.
-              The functionality to watch the course has been temporaly disabled.
-              <i className="block font-normal">Please contact info@eincode.com</i>
-            </Message>
-          }
-        </div>
-      }
             <Curriculum 
+                course={course}
                 isLoading={isLoading}
                 locked={isLocked}
                 courseState={courseState}
             />
-            <Modal/>        
+            <OrderModal 
+              course={selectedCourse}
+              onClose={() => setSelectedCourse(null)}
+              onSumbit={(formData, course) => purchaseCourse(formData, course)}
+            />      
         </>
     )
 }

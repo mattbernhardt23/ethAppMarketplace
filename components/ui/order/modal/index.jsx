@@ -34,7 +34,7 @@ const createFormState = ({price, email, confirmationEmail, isNewPurchase }) => {
   return _createFormState()
 }
 
-export default function OrderModal({course, onClose, onSumbit, isNewPurchase}) {
+export default function OrderModal({course, onClose, onSumbit}) {
   const [isOpen, setIsOpen] = useState(false)
   const [order, setOrder] = useState(defaultOrder)
   const { eth, perItem } = useEthPrice()
@@ -51,7 +51,7 @@ export default function OrderModal({course, onClose, onSumbit, isNewPurchase}) {
       })
     }
   }, [course])
-  
+   
   // Closes the modal. OnClose function resets course to null.
   const closeModal = () => {
     setIsOpen(false)

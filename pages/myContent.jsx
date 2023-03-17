@@ -1,4 +1,4 @@
-import { OwnedCourseCard } from "@components/ui/course";
+import { OwnedCourseCard, CourseFilter } from "@components/ui/course";
 import { MarketHeader } from "@components/ui/marketplace";
 import { Message, Button } from "@components/ui/common";
 import { useOwnedCourses, useAccount } from "@components/hooks/web3"
@@ -16,8 +16,6 @@ export default function OwnedCourses({courses}) {
  
   return (
     <>
-      {/* {JSON.stringify(ownedCourses.data) } */}
-      <MarketHeader />
       <section className="grid grid-cols-1">
       { ownedCourses.isEmpty && (
           !ownedCourses.data || ownedCourses?.data.length === 0
@@ -55,6 +53,7 @@ export default function OwnedCourses({courses}) {
           
             <Button
               onClick={() => router.push(`/courses/${course.slug}`)}
+              hoverable={true}
             >
               Watch the course
             </Button>

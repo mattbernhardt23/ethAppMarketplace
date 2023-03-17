@@ -1,13 +1,13 @@
 import Image from "next/image"
 import Link from "next/link"
 import { AnimateKeyframes } from "react-simple-animate"
-
+  
 export default function Card({course, disabled, Footer, state}) {
   return (
     <div
-      className="bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
+      className="bg-white mx-auto rounded-xl shadow-md overflow-hidden md:max-w-2xl">
       <div className="flex h-full">
-        <div className="flex h-full">
+        <div className="flex h-full"> 
           <Image
             className={`object-cover ${disabled && "filter grayscale"}`}
             src={course.coverImage}
@@ -21,7 +21,7 @@ export default function Card({course, disabled, Footer, state}) {
         <div className="p-8">
         <div className="flex items-center">
             <div
-              className="uppercase mr-2 tracking-wide text-sm text-indigo-500 font-semibold">
+              className="uppercase mr-2 tracking-wide text-sm text-cyan-500 font-semibold">
               {course.type}
             </div>
             <div>
@@ -54,14 +54,15 @@ export default function Card({course, disabled, Footer, state}) {
             legacyBehavior  
           >
             <a
-              className="h-12 block mt-1 text-sm sm:text-lg leading-tight font-medium text-black hover:underline"
+              className="h-12 block mt-1 text-sm sm:text-lg leading-tight font-medium text-gray-700 hover:underline"
             >
               {course.title}
             </a>
           </Link>
           <p
              className="mt-2 text-sm sm:text-base text-gray-500">
-            {course.description.substring(0, 70)}...
+            {course.description?.substring(0, 70)}...
+            
           </p>
           {
             Footer &&

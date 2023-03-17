@@ -1,0 +1,73 @@
+[
+    {
+        "id": "657654",
+        "name": "Ken Miles",
+        "location": "Coldfield, United Kingdom",
+        "photo": "/assets/reviewPhotos/kenMiles.png", 
+        "review": "Its out there, most people don't know it, but it is. The perfect lap."
+    },
+    {
+        "id": "10645342",
+        "name": "Sydney Burnet",
+        "location": "Miami, Florida",
+        "photo": "/assets/reviewPhotos/gUnion.png", 
+        "review": "Everything I've experienced on this site has been excpetional. Bad boys for life!"
+    },
+    {
+        "id": "09845674",
+        "name": "Stringer Bell",
+        "location": "Baltimore, Maryland",
+        "photo": "/assets/reviewPhotos/idris.png", 
+        "review": "This here game is more than the rep you carry, the corner you hold. You gotta be fierce, I know that."
+    },
+    {
+        "id": "677659",
+        "name": "Aldous Snow",
+        "location": "Essex, United Kingdom",
+        "photo": "/assets/reviewPhotos/aldous.png", 
+        "review": "What you did was very spiteful, but it was also very brave and very honest and I respect you for doing that."
+    },
+    {
+        "id": "12378905",
+        "name": "Sara Wayland",
+        "location": "Long Beach, California",
+        "photo": "/assets/reviewPhotos/angelina.png", 
+        "review": "I've got two jobs. I've discovered that you have to work twice as hard when it's honest"
+    },
+    {
+        "id": "54678392",
+        "name": "John Creasy",
+        "location": "Knoxville, Tennessee",
+        "photo": "/assets/reviewPhotos/denzel.png", 
+        "review": "There is no such thing as tough. There is trained and untrained. Now which are you?"
+    },
+    {
+        "id": "10397364",
+        "name": "Happy Gilmore",
+        "location": "Boston, Massachusetts",
+        "photo": "/assets/reviewPhotos/happy.png", 
+        "review": "Just tap it in. Just tap it in. Give it a little tappy. Tap Tap Taparoo."
+    },
+    {
+        "id": "10645342",
+        "name": "Mike Tyson",
+        "location": "New York, New York",
+        "photo": "/assets/reviewPhotos/tyson.png", 
+        "review": "There's nothing more deadly or more proficient then a happy fighter."
+    },
+    {
+        "id": "106353722",
+        "name": "O-Ren Ishii",
+        "location": "Tokyo, Japan",
+        "photo": "/assets/reviewPhotos/lucy.png", 
+        "review": "You may not be able to fight like a Samurai, but you can at least die like a Samurai."
+    },
+    {
+        "id": "199224562",
+        "name": "Alan",
+        "location": "Bel Air, California",
+        "photo": "/assets/reviewPhotos/alan.png", 
+        "review": "I’ve found a baby before."
+    }
+   
+]
