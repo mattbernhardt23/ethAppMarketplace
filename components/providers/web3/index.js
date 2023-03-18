@@ -8,6 +8,7 @@ const {
 import { useSetupHooks } from "./hooks/setupHooks";
 import { loadContract } from "@utils/loadContract";
 import detectEthereumProvider from "@metamask/detect-provider";
+import { ethers } from "ethers";
 import Web3 from "web3";
 
 const Web3Context = createContext();
@@ -38,6 +39,7 @@ export default function Web3Provider({ children }) {
 
   useEffect(() => {
     const loadProvider = async () => {
+      // const provider = new ethers.providers.Web3Provider(window.ethereum);
       const provider = await detectEthereumProvider();
       console.log("provider", provider);
       if (provider) {

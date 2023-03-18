@@ -12,8 +12,12 @@ export const handler = (web3, provider) => () => {
     () => (web3 ? "web3/accounts" : null),
     async () => {
       const accounts = await web3.eth.getAccounts();
-      console.log(accounts[0]);
+
       const account = accounts[0];
+      // const signer = provider.getSigner();
+
+      // // Get the account address
+      // const account = await signer.getAddress();
       if (!account) {
         throw new Error("Cannot retrieve account. Please refresh the browser");
       }

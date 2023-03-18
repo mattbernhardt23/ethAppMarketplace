@@ -122,7 +122,7 @@ export default function Marketplace({courses}) {
                   size="sm"
                   onClick={() => setSelectedCourse(course)}
                   disabled={!hasConnectedWallet}
-                  variant="lightPurple">
+                  variant="cyan">
                   Purchase
                 </Button>
               )}
