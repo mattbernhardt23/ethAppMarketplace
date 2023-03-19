@@ -15,6 +15,8 @@ export default function Marketplace({courses}) {
   const [selectedCourse, setSelectedCourse] = useState(null)
   const [isNewPurchase, setIsNewPurchase] = useState(true)
   
+  console.log("from market place", "did this run")
+
   const purchaseCourse = async (order) => {
     //Returns in Hexidecimal Format the Course Id
     const hexCourseId = web3.utils.utf8ToHex(selectedCourse.id)
