@@ -1,5 +1,5 @@
 const NETWORK_ID = process.env.NEXT_PUBLIC_NETWORK_ID;
-import Artifact from "../public/contracts/CourseMarketplace.json";
+import Artifact from "./CourseMarketPlace.json";
 
 export const loadContract = async (name, web3) => {
   console.log("Does this even fucking run?");
