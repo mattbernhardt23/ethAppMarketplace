@@ -35,7 +35,7 @@ export const handler = (web3, provider) => () => {
       // Provide the name of the event we don't want to listen to, and the mutator function that is mutationg the state.
       provider?.removeListener("accountsChanged", mutator);
     };
-  }, [provider]);
+  }, [provider, mutate]);
 
   return {
     data,

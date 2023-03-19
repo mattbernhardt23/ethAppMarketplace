@@ -1,11 +1,15 @@
 const NETWORK_ID = process.env.NEXT_PUBLIC_NETWORK_ID;
+import Artifact from "../public/contracts/CourseMarketplace.json";
 
 export const loadContract = async (name, web3) => {
+  console.log("Does this even fucking run?");
   // Fetch the contract from our public folder
-  const res = await fetch(`/contracts/${name}.json`);
-  // We then get the Artifact from the res.JSON
-  const Artifact = await res.json();
+  // const res = await fetch(`/contracts/${name}.json`);
+  // console.log(res, "res");
+  // // We then get the Artifact from the res.JSON
+  // const Artifact = await res.json();
 
+  console.log("artifact", Artifact);
   let contract = null;
 
   try {
@@ -19,5 +23,3 @@ export const loadContract = async (name, web3) => {
 
   return contract;
 };
-
-// Quick note: using the truffle package sends a very large file. That's why we access the web3.eth.Contract method directly, instead of creating an instance of the TruffleContract.

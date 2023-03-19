@@ -50,7 +50,7 @@ export default function OrderModal({course, onClose, onSumbit}) {
         price: perItem
       })
     }
-  }, [course])
+  }, [course, perItem])
    
   // Closes the modal. OnClose function resets course to null.
   const closeModal = () => {
