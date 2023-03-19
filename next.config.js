@@ -3,7 +3,4 @@ module.exports = {
   images: {
     domains: ["thrangra.sirv.com"],
   },
-  devIndicators: {
-    autoPrerender: false,
-  },
 };
