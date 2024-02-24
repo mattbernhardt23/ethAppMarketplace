@@ -1,11 +1,5 @@
 import { useEffect } from "react";
 import useSWR from "swr";
-// This is a function that calls a function. I think this has something to do with hooks, I'm not sure.
-
-const adminAddresses = {
-  "0xe95fb13e8306ea1dccaff378b00af2cbc153f66665d11c77bf216c3f92160015": true,
-  "0x23e901d1733896b47d22a33a84108b2c6a24789c82e9db693a014ecd2b03a1b7": true,
-};
 
 export const handler = (web3, provider) => () => {
   const { data, mutate, ...rest } = useSWR(
